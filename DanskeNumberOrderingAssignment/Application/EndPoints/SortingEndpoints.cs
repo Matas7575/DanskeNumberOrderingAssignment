@@ -8,6 +8,9 @@ public static class SortingEndpoints
     {
         app.MapPost("/sortArray", async (SortRequest request, ISortingService sortingService, IFileService fileService) =>
         {
+            if(request.Array.Length > 10 || request.Array.Length < 1)
+                return Results.BadRequest("Array length must be between 1 and 10");
+            
             var sortedArray = new int[0];
             
             switch (request.Algorithm)
